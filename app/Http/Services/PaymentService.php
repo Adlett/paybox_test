@@ -26,6 +26,8 @@ class PaymentService extends Model
         }
         $model->payment_date = now('Asia/Almaty');
         $model->card_number = $this->card;
+        $model->phone = $this->phone;
+        $model->email = $this->email;
 
         return $model->save();
     }

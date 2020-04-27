@@ -35,7 +35,7 @@ class PaymentRequest extends FormRequest
             ],
             'month' => [
                 'required',
-                'integer',
+                'numeric',
                 'min:1',
                 'max:12',
                 'digits:2'

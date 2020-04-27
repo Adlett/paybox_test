@@ -43,7 +43,7 @@
                         <li><a href="{{ route('admin.auth.login') }}">Login</a></li>
                         <li><a href="{{ route('admin.register') }}">Register</a></li>
                     @else
-                        <li><a href="{{ route('admin.payment.index') }}">Товары</a></li>
+                        <li><a href="{{ route('admin.payment.index') }}">Платежи</a></li>
                         <li>
                             <a href="{{ route('admin.auth.logout') }}"
                                onclick="event.preventDefault();
