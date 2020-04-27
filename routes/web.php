@@ -15,26 +15,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function (){
-    Route::get('/', 'DashboardController@dashboard')->name('admin.index');
-    Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard');
+    Route::get('/', function () {
+        return view('admin.home');
+    })->middleware('auth.admin');
 
-    Route::get('register', 'DashboardController@create')->name('admin.register');
-    Route::post('register', 'DashboardController@store')->name('admin.register.store');
+    Route::get('/register', 'RegisterController@showRegistrationForm')->name('admin.register');
+    Route::post('/register', 'RegisterController@register')->name('admin.register.store');
 
-    Route::get('login', 'LoginController@login')->name('admin.auth.login');
-    Route::post('login', 'LoginController@loginAdmin')->name('admin.auth.loginAdmin');
-    Route::post('logout', 'LoginController@logout')->name('admin.auth.logout');
+    Route::get('/login', 'LoginController@showLoginForm')->name('admin.auth.loginForm');
+    Route::post('/login', 'LoginController@login')->name('admin.auth.login');
+    Route::post('/logout', 'LoginController@logout')->name('admin.auth.logout');
 
-    Route::get('/partners', 'PartnerController@index')->name('admin.partner.index');
-    Route::get('/partner/create', 'PartnerController@create')->name('admin.partner.create');
-    Route::post('/partner', 'PartnerController@store')->name('admin.partner.store');
-    Route::delete('/partner/{partner}', 'PartnerController@destroy')->name('admin.partner.delete');
-    Route::get('/partner/edit/{partner}', 'PartnerController@edit')->name('admin.partner.edit');
-    Route::patch('/partner/update/{partner}', 'PartnerController@update')->name('admin.partner.update');
+    Route::get('/payments', 'PaymentsController@index')->name('admin.payment.index');
+    Route::get('/payment/create', 'PaymentsController@create')->name('admin.payment.create');
+    Route::post('/payment', 'PaymentsController@store')->name('admin.payment.store');
+    Route::get('/payment/{model}', 'PaymentsController@edit')->name('admin.payment.edit');
+    Route::patch('/payment/update/{model}', 'PaymentsController@update')->name('admin.payment.update');
+    Route::get('/payment/view/{model}', 'PaymentsController@view')->name('admin.payment.view');
 
 });
+
+Route::get('/payment/{model}', 'HomeController@view')->name('payment.view');
+Route::post('/payment/{model}', 'HomeController@pay')->name('payment.pay');

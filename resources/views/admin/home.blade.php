@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app_admin')
 
 @section('content')
 <div class="container">
@@ -13,7 +13,6 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    {{App::version()}}
                     You are logged in!
                 </div>
             </div>
